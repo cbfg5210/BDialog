@@ -27,7 +27,14 @@ class BDialog : DialogFragment() {
     private var type: Int = 0
     @LayoutRes
     private var layoutRes: Int = 0
+
+    /*
+    * 全屏标识, notFocusable 优先于 isFullScreen
+    */
+    //如果为true的话可以实现全屏效果,但是在弹出的时候会看到隐藏状态栏、导航栏的过程
     private var isFullScreen: Boolean = false
+    //如果为true的话可以实现全屏效果,但是会因此获取不到焦点,如果有EditText的话,EditText会因为没有焦点不能输入
+    private var notFocusable: Boolean = false
 
     private val builder: AlertDialog.Builder by lazy { AlertDialog.Builder(context!!) }
     private val args: Bundle by lazy { Bundle() }
@@ -51,6 +58,11 @@ class BDialog : DialogFragment() {
 
     fun setFullScreen(isFullScreen: Boolean): BDialog {
         this.isFullScreen = isFullScreen
+        return this
+    }
+
+    fun setNotFocusable(notFocusable: Boolean): BDialog {
+        this.notFocusable = notFocusable
         return this
     }
 
@@ -111,14 +123,12 @@ class BDialog : DialogFragment() {
     private fun setupDialog(dialog: Dialog, window: Window) {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-        if (isFullScreen) {
-            //隐藏状态栏、底部栏,弹出dialog时会出现一下而后才隐藏
-            //ScreenUtils.hideBottomUIMenu(this)
+        if (notFocusable) {
             //弹出dialog时,保持隐藏状态栏、底部栏
-            window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-            )
+            window.setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+        } else if (isFullScreen) {
+            //隐藏状态栏、底部栏,弹出dialog时会出现一下而后才隐藏
+            Utils.hideBottomUIMenu(window, isFullScreen)
         }
 
         dialog.setOnKeyListener { _, keyCode, event ->
@@ -180,8 +190,6 @@ class BDialog : DialogFragment() {
     }
 
     companion object {
-        fun get(): BDialog {
-            return BDialog()
-        }
+        fun get(): BDialog = BDialog()
     }
 }

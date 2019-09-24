@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
 
         btnShowDialog.setOnClickListener {
             BDialog.get()
+                    .setFullScreen(true)
+                    //.setNotFocusable(true)
                     .init { _: BDialog, builder: AlertDialog.Builder ->
                         builder.setTitle("Test dialog")
                         builder.setMessage("Hello world!Hello world!")
