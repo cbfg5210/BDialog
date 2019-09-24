@@ -10,7 +10,6 @@ import com.dialog.BDialog
 import com.dialog.demo.R
 import kotlinx.android.synthetic.main.fragment_view.view.*
 import kotlinx.android.synthetic.main.layout_dialog_1.view.tvMessage
-import kotlinx.android.synthetic.main.layout_dialog_2.view.*
 import kotlinx.android.synthetic.main.layout_dialog_2.view.tvBtn
 import kotlinx.android.synthetic.main.layout_dialog_2.view.tvTitle
 import kotlinx.android.synthetic.main.layout_dialog_input.view.*
