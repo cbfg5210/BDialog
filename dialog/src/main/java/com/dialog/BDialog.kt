@@ -32,8 +32,8 @@ class BDialog : DialogFragment() {
     private val builder: AlertDialog.Builder by lazy { AlertDialog.Builder(context!!) }
     private val args: Bundle by lazy { Bundle() }
 
-    private var initViewListener: InitViewListener? = null
-    private var initDialogListener: InitDialogListener? = null
+    private lateinit var initViewListener: ((dialog: BDialog, view: View) -> Unit)
+    private lateinit var initDialogListener: ((dialog: BDialog, builder: AlertDialog.Builder) -> Unit)
     private var dismissListener: DialogInterface.OnDismissListener? = null
 
     @IntDef(Type.Dialog, Type.View)
@@ -54,14 +54,14 @@ class BDialog : DialogFragment() {
         return this
     }
 
-    fun init(layoutRes: Int, initViewListener: InitViewListener?): BDialog {
+    fun init(layoutRes: Int, initViewListener: (dialog: BDialog, view: View) -> Unit): BDialog {
         this.type = Type.View
         this.layoutRes = layoutRes
         this.initViewListener = initViewListener
         return this
     }
 
-    fun init(initDialogListener: InitDialogListener?): BDialog {
+    fun init(initDialogListener: (dialog: BDialog, builder: AlertDialog.Builder) -> Unit): BDialog {
         this.type = Type.Dialog
         this.initDialogListener = initDialogListener
         return this
@@ -76,9 +76,7 @@ class BDialog : DialogFragment() {
         if (type == Type.View) {
             return super.onCreateDialog(savedInstanceState)
         }
-
-        initDialogListener?.run { initDialog(this@BDialog, builder) }
-
+        initDialogListener.invoke(this, builder)
         return builder.create()
     }
 
@@ -95,41 +93,35 @@ class BDialog : DialogFragment() {
         // 换成 Activity 的 inflater, 解决 fragment 样式 bug
         layoutInflater = aty.layoutInflater
 
-        dialog?.window?.apply {
-            if (!this.isFloating) {
-                setupDialog()
-                layoutInflater = BDialogLayoutInflater(requireContext(), layoutInflater,
-                        object : BDialogFrameLayout.OnTouchOutsideListener {
-                            override fun onTouchOutside() {
-                                cancel()
-                            }
-                        }
-                )
+        val mDialog = dialog ?: return layoutInflater
+        val mWindow = mDialog.window ?: return layoutInflater
+
+        if (!mWindow.isFloating) {
+            setupDialog(mDialog, mWindow)
+            layoutInflater = BDialogLayoutInflater(requireContext(), layoutInflater) {
+                if (isCancelable) {
+                    dismiss()
+                }
             }
         }
 
         return layoutInflater
     }
 
-    private fun cancel() {
-        if (isCancelable) {
-            dismiss()
-        }
-    }
+    private fun setupDialog(dialog: Dialog, window: Window) {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-    private fun setupDialog() {
-        dialog?.window?.run {
-            setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
-            if (isFullScreen) {
-                //隐藏状态栏、底部栏,弹出dialog时会出现一下而后才隐藏
-                //ScreenUtils.hideBottomUIMenu(this)
-                //弹出dialog时,保持隐藏状态栏、底部栏
-                this.setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
-            }
+        if (isFullScreen) {
+            //隐藏状态栏、底部栏,弹出dialog时会出现一下而后才隐藏
+            //ScreenUtils.hideBottomUIMenu(this)
+            //弹出dialog时,保持隐藏状态栏、底部栏
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            )
         }
 
-        dialog?.setOnKeyListener { _, keyCode, event ->
+        dialog.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                 if (isCancelable) {
                     dismiss()
@@ -141,14 +133,16 @@ class BDialog : DialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         if (type == Type.Dialog || layoutRes == 0) {
             return super.onCreateView(inflater, container, savedInstanceState)
         }
-
         val layoutView = inflater.inflate(layoutRes, null)
-        initViewListener?.run { initView(this@BDialog, layoutView) }
-
+        initViewListener.invoke(this, layoutView)
         return layoutView
     }
 
@@ -183,14 +177,6 @@ class BDialog : DialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         dismissListener?.onDismiss(dialog)
-    }
-
-    interface InitViewListener {
-        fun initView(dialog: BDialog, view: View)
-    }
-
-    interface InitDialogListener {
-        fun initDialog(dialog: BDialog, builder: AlertDialog.Builder)
     }
 
     companion object {

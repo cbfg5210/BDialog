@@ -14,13 +14,11 @@ class MainActivity : AppCompatActivity() {
 
         btnShowDialog.setOnClickListener {
             BDialog.get()
-                .init(object : BDialog.InitDialogListener {
-                    override fun initDialog(dialog: BDialog, builder: AlertDialog.Builder) {
+                    .init { _: BDialog, builder: AlertDialog.Builder ->
                         builder.setTitle("Test dialog")
                         builder.setMessage("Hello world!Hello world!")
                     }
-                })
-                .show(lifecycle, supportFragmentManager, "TestDialog")
+                    .show(lifecycle, supportFragmentManager, "TestDialog")
         }
     }
 }

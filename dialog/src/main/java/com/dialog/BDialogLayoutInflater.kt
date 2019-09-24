@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class BDialogLayoutInflater(context: Context, private val layoutInflater: LayoutInflater, private val listener: BDialogFrameLayout.OnTouchOutsideListener) : LayoutInflater(context) {
+class BDialogLayoutInflater(context: Context, private val layoutInflater: LayoutInflater, private val listener: () -> Unit) : LayoutInflater(context) {
 
     override fun cloneInContext(context: Context): LayoutInflater {
         return layoutInflater.cloneInContext(context)
