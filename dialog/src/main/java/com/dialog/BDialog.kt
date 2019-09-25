@@ -37,7 +37,6 @@ class BDialog : DialogFragment() {
     private var notFocusable: Boolean = false
 
     private val builder: AlertDialog.Builder by lazy { AlertDialog.Builder(context!!) }
-    private val args: Bundle by lazy { Bundle() }
 
     private lateinit var initViewListener: ((dialog: BDialog, view: View) -> Unit)
     private lateinit var initDialogListener: ((dialog: BDialog, builder: AlertDialog.Builder) -> Unit)
@@ -53,7 +52,11 @@ class BDialog : DialogFragment() {
     }
 
     fun args(): Bundle {
-        return args
+        val bundle = arguments ?: Bundle()
+        if (arguments == null) {
+            arguments = bundle
+        }
+        return bundle
     }
 
     fun setFullScreen(isFullScreen: Boolean): BDialog {
