@@ -27,4 +27,12 @@
         android:layout_marginTop="10dp"
         android:text="Dialog_Input"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnDialogBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Dialog_Bottom"
+        android:textAllCaps="false" />
 </LinearLayout>

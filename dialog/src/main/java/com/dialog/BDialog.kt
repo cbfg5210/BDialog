@@ -121,8 +121,6 @@ class BDialog : DialogFragment() {
     }
 
     private fun setupDialog(dialog: Dialog, window: Window) {
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
         if (notFocusable) {
             //弹出dialog时,保持隐藏状态栏、底部栏
             window.setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
