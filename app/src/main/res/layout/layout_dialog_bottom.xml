@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="@android:color/darker_gray"
+    android:background="@android:color/white"
     android:orientation="vertical"
+    tools:background="@android:color/darker_gray"
     tools:ignore="HardcodedText">
 
     <TextView
         android:id="@+id/tvOption1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:padding="10dp"
         android:text="Option 1" />
@@ -19,12 +21,13 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@android:color/white" />
+        android:background="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/tvOption2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:padding="10dp"
         android:text="Option 2" />
@@ -32,12 +35,13 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@android:color/white" />
+        android:background="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/tvOption3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:padding="10dp"
         android:text="Option 3" />

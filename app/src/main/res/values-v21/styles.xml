@@ -1,0 +1,15 @@
+<resources>
+
+    <!--BLayoutDialog底部滑入画出-->
+    <style name="BLayoutDialogSlideInBottomTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowAnimationStyle">@style/SlideInFromBottomAnim</item>
+
+        <!--以下两句的效果是一样的,使用其中之一即可-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+</resources>
