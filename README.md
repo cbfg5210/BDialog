@@ -1,7 +1,7 @@
 # BDialog
 [![](https://jitpack.io/v/cbfg5210/BDialog.svg)](https://jitpack.io/#cbfg5210/BDialog)
 
-最近又抽空重新封装了一下 DialogFragment。下面和大家分享一下封装后的使用方法，还望各位看官多多指点!
+最近又抽空重新封装了一下 DialogFragment，其中有参考了这篇文章：[所见即所得 dialog](https://juejin.im/post/5b3f6e33e51d4519503af921)。下面和大家分享一下封装后的使用方法，还望各位看官多多指点!
 
 ## 引入依赖
 ### Step 1. Add the JitPack repository to your build file
