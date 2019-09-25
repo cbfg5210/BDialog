@@ -21,30 +21,6 @@ dependencies {
 ```
 
 ## 使用
-
-# BDialog
-[![](https://jitpack.io/v/cbfg5210/BDialog.svg)](https://jitpack.io/#cbfg5210/BDialog)
-
-最近又抽空重新封装了一下 DialogFragment。下面和大家分享一下封装后的使用方法，还望各位看官多多指点!
-
-## 引入依赖
-### Step 1. Add the JitPack repository to your build file
-```gradle
-allprojects {
-	repositories {
-	  ...
-	  maven { url 'https://jitpack.io' }
-    }
-}
-```
-### Step 2. Add the dependency
-```gradle
-dependencies {
-       implementation 'com.github.cbfg5210:BDialog:0.2'
-}
-```
-
-## 使用
 ```java
 BDialog.get()
         //设置主题
@@ -82,3 +58,21 @@ BDialog.get()
         //使用这个方法显示弹窗,无惧 IllegalStateException (Can not perform this action after onSaveInstanceState)
         .show(lifecycle, childFragmentManager, "DialogTag")
 ```
+
+#### 最后附上几个 Demo 截图：
+
+![capture_dialog](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_dialog.png)
+
+![capture_dialog_1](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_dialog_1.png)
+
+![capture_dialog_2](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_dialog_2.png)
+
+![capture_layout](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_layout.png)
+
+![capture_layout_1](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_layout_1.png)
+
+![capture_layout_2](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_layout_2.png)
+
+![capture_layout_3](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_layout_3.png)
+
+![capture_layout_4](https://raw.githubusercontent.com/cbfg5210/BDialog/master/captures/capture_layout_4.png)
