@@ -28,6 +28,11 @@ class BDialog : DialogFragment() {
     @LayoutRes
     private var layoutRes: Int = 0
 
+    /**
+     * @see setRetainInstance
+     */
+    private var retainInstanceEnabled: Boolean = true
+
     /*
     * 全屏标识, notFocusable 优先于 isFullScreen
     */
@@ -59,6 +64,11 @@ class BDialog : DialogFragment() {
         return bundle
     }
 
+    fun disableRetainInstance(): BDialog {
+        retainInstanceEnabled = false
+        return this
+    }
+
     fun setFullScreen(isFullScreen: Boolean): BDialog {
         this.isFullScreen = isFullScreen
         return this
@@ -85,6 +95,12 @@ class BDialog : DialogFragment() {
     fun setDismissListener(dismissListener: DialogInterface.OnDismissListener?): BDialog {
         this.dismissListener = dismissListener
         return this
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //retain ths fragment
+        retainInstance = retainInstanceEnabled
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

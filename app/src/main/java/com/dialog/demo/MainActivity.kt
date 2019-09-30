@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btnAlertDialog.setOnClickListener(this)
         btnDialog1.setOnClickListener(this)
         btnDialog2.setOnClickListener(this)
         btnVDialog1.setOnClickListener(this)
@@ -31,6 +32,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
+            R.id.btnAlertDialog -> {
+                AlertDialog.Builder(this)
+                        .setMessage("Hello,AlertDialog!")
+                        .create()
+                        .show()
+            }
+
             R.id.btnDialog1 -> {
                 BDialog.get()
                         .init { _: BDialog, builder: AlertDialog.Builder -> builder.setMessage("这是一个只有内容的 Dialog") }
