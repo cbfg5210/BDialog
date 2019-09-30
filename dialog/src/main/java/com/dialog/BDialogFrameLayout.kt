@@ -6,6 +6,9 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.FrameLayout
 
+/**
+ * 参考：https://github.com/listenzz/AndroidNavigation/blob/master/navigation/src/main/java/com/navigation/androidx/DialogFrameLayout.java
+ */
 class BDialogFrameLayout(context: Context) : FrameLayout(context) {
     private var onTouchOutsideListener: (() -> Unit)? = null
 
@@ -16,7 +19,7 @@ class BDialogFrameLayout(context: Context) : FrameLayout(context) {
             val rect = Rect()
             getHitRect(rect)
 
-            for (i in childCount - 1 downTo -1 + 1) {
+            for (i in childCount - 1 downTo 0) {
                 val child = getChildAt(i)
                 val outRect = Rect()
                 child.getHitRect(outRect)

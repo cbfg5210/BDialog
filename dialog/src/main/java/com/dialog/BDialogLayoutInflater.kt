@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+/**
+ * 参考：https://github.com/listenzz/AndroidNavigation/blob/master/navigation/src/main/java/com/navigation/androidx/DialogLayoutInflater.java
+ */
 class BDialogLayoutInflater(context: Context, private val layoutInflater: LayoutInflater, private val listener: () -> Unit) : LayoutInflater(context) {
 
     override fun cloneInContext(context: Context): LayoutInflater {
