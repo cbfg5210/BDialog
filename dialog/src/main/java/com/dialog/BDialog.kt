@@ -24,7 +24,7 @@ import androidx.lifecycle.Lifecycle
  */
 class BDialog : DialogFragment() {
     @Type
-    private var type: Int = 0
+    private var type: Int = Type.Dialog
     @LayoutRes
     private var layoutRes: Int = 0
 
