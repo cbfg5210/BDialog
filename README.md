@@ -1,6 +1,9 @@
 # BDialog
 [![](https://jitpack.io/v/cbfg5210/BDialog.svg)](https://jitpack.io/#cbfg5210/BDialog)
 
+## :no_entry: Deprecated :no_entry:
+This project is not supported anymore. 
+
 最近又抽空重新封装了一下 DialogFragment，其中有参考了这篇文章：[所见即所得 dialog](https://juejin.im/post/5b3f6e33e51d4519503af921)。下面和大家分享一下封装后的使用方法，还望各位看官多多指点!
 
 ## 引入依赖
